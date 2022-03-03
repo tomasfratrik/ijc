@@ -1,2 +1,2 @@
 #include "bitset.h"
-void Eratosthenes(bitset_t *bitset_arr);
+void Eratosthenes(bitset_t bitset_arr);

@@ -10,7 +10,7 @@
 #include <limits.h>
 #include "bitset.h"
 #include "eratosthenes.h"
-#define N 300
+#define N 300000000
 #define NUM_TO_PRINT 10
 
 
@@ -18,7 +18,7 @@
 int main(){
 
     
-    bitset_create(bit_arr,N);
+    bitset_alloc(bit_arr,N);
     Eratosthenes(bit_arr);
     // unsigned long cislo = 1;
     // unsigned long idx = 301;

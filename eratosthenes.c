@@ -1,7 +1,7 @@
 #include "bitset.h"
 #include<math.h>
 
-void Eratosthenes(bitset_t *bitset_arr){
+void Eratosthenes(bitset_t bitset_arr){
     
     unsigned long zero = 0;
     unsigned long one = 1;
@@ -14,8 +14,7 @@ void Eratosthenes(bitset_t *bitset_arr){
 
 
     for(unsigned long i = 2; i <= condition;i++){
-        unsigned long bit = bitset_getbit(bitset_arr,i); 
-        if(!bit){
+        if(bitset_getbit(bitset_arr,i) == 0){
             for(unsigned long n = 2; n*i < size;n++){
                 bitset_setbit(bitset_arr,n*i,1);
             }
