@@ -8,6 +8,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+// #include<assert.h>
 #include"error.h"
 
 #ifndef BITSET
@@ -20,8 +21,10 @@ typedef unsigned long bitset_index_t;
 
 
 #define bitset_create(jmeno_pole,size) bitset_index_t jmeno_pole[size / (BITS(unsigned long)) + ((size %(BITS(unsigned long))) == 0 ? 1 : 2 )] = {size,0}
+    // static_assert(size > 0,"nie no");
 
-#define bitset_alloc(jmeno_pole, size) bitset_index_t *jmeno_pole = calloc(size / (BITS(unsigned long)) + ((size %(BITS(unsigned long))) == 0 ? 1 : 2 ), sizeof(unsigned long));\
+#define bitset_alloc(jmeno_pole, size)\
+    bitset_index_t *jmeno_pole = calloc(size / (BITS(unsigned long)) + ((size %(BITS(unsigned long))) == 0 ? 1 : 2 ), sizeof(unsigned long));\
     if(jmeno_pole == NULL){\
         error_exit("bitset_alloc: Chyba alokace paměti");\
     }\
@@ -35,7 +38,8 @@ typedef unsigned long bitset_index_t;
 #define bitset_free(jmeno_pole) free(jmeno_pole)
 
 
-// #define bitset_getbit2(jmeno_pole,index) ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
+// #define bitset_getbit(jmeno_pole,index) _static_assert((index > bitset_size(jmeno_pole)),"test") 
+//     ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
 #define bitset_getbit(jmeno_pole,index)  (index > bitset_size(jmeno_pole))\
     ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(unsigned long)index, (unsigned long)bitset_size(jmeno_pole))),0 \
     : ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
