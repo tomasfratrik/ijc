@@ -34,11 +34,16 @@ typedef unsigned long bitset_index_t;
 #define bitset_size(jmeno_pole) jmeno_pole[0]
 #define bitset_free(jmeno_pole) free(jmeno_pole)
 
-#define bitset_getbit2(jmeno_pole,index) ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
-#define bitset_getbit(jmeno_pole,index)  (index > bitset_size(jmeno_pole)) ? bitset_getbit2(jmeno_pole,index) : bitset_getbit2(jmeno_pole,index)
+
+// #define bitset_getbit2(jmeno_pole,index) ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
+#define bitset_getbit(jmeno_pole,index)  (index > bitset_size(jmeno_pole))\
+    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(unsigned long)index, (unsigned long)bitset_size(jmeno_pole))),0 \
+    : ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
 
 #define bitset_setbit2(jmeno_pole,index,vyraz) (vyraz) ? (jmeno_pole[(index/((BITS(unsigned long))))+1]) |= 1UL << index : ((jmeno_pole[(index/((BITS(unsigned long))))+1])  &= ~(1UL << index))
-#define bitset_setbit(jmeno_pole,index,vyraz) (index > bitset_size(jmeno_pole)) ? (void)(error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(unsigned long)index, (unsigned long)bitset_size(jmeno_pole))) : (void)(bitset_setbit2(jmeno_pole,index,vyraz))
+#define bitset_setbit(jmeno_pole,index,vyraz) (index > bitset_size(jmeno_pole))\
+    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(unsigned long)index, (unsigned long)bitset_size(jmeno_pole))),0\
+    : (bitset_setbit2(jmeno_pole,index,vyraz))
 
 
 

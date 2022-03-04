@@ -15,9 +15,6 @@ eratosthenes.o: eratosthenes.c primes.c bitset.h
 error.o: error.c error.h error.h
 	gcc $(CFLAGS) -c error.c -o error.o
 
-
-
-
 primes-i: primes-i.o eratosthenes-i.o error.o
 	gcc $(CFLAGS) -DUSE_INLINE primes-i.o eratosthenes-i.o error.o -o primes-i -lm
 

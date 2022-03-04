@@ -10,19 +10,20 @@
 #include <limits.h>
 #include "bitset.h"
 #include "eratosthenes.h"
-#define N 300000000
+#define N 300
 #define NUM_TO_PRINT 10
 
 
 
 int main(){
 
-    
+    //
     bitset_alloc(bit_arr,N);
     Eratosthenes(bit_arr);
     // unsigned long cislo = 1;
-    // unsigned long idx = 301;
     // bitset_setbit(bit_arr,idx,cislo);
+    // unsigned long idx = 301;
+    // bitset_getbit(bit_arr,idx);
     
     unsigned long last_prime_numbers[NUM_TO_PRINT];
     int count = 0;
