@@ -1,28 +1,32 @@
-
- # makefile
- # Riešenie IJC=DU1, priklad a), 20.3.2022
- # Autor: Tomáš Frátrik (xfratr01), FIT
- # Preložene: gcc 9.3.0
-
 CC=gcc
-CFLAGS= -O2 -g -std=c11 -pedantic -Wextra -Wall
+CFLAGS= -O2 -g -std=c11 -Wextra -Wall -pedantic  -Werror
 
 all: primes primes-i
-#steg-decode: steg-decode.c eratosthenes.c ppm.c ppm.h error.c bit-array.h
-#	$(CC) $(CFLAGS) steg-decode.c -o steg-decode
+
+primes: primes.o eratosthenes.o error.o
+	gcc $(CFLAGS) primes.o eratosthenes.o error.o -o primes -lm
+
+primes.o: primes.c bitset.h
+	gcc $(CFLAGS) -c primes.c -o primes.o
+
+eratosthenes.o: eratosthenes.c primes.c bitset.h
+	gcc $(CFLAGS) -c eratosthenes.c -o eratosthenes.o
+
+error.o: error.c error.h error.h
+	gcc $(CFLAGS) -c error.c -o error.o
 
 
-primes.o: primes.c bitset.h eratosthenes.h
-error.o: error.c error.h
-eratosthenes.o: eratosthenes.c eratosthenes.h bitset.h
 
 
-primes: primes.o eratosthenes.o error.o eratosthenes.h
-		$(CC) $(CFLAGS) error.o primes.o eratosthenes.o -o $@ -lm
+primes-i: primes-i.o eratosthenes-i.o error.o
+	gcc $(CFLAGS) -DUSE_INLINE primes-i.o eratosthenes-i.o error.o -o primes-i -lm
 
-primes-i: primes.o eratosthenes.o error.o eratosthenes.h
-	$(CC) $(CFLAGS) -DUSE_INLINE error.o primes.o eratosthenes.o -o $@ -lm
-
+primes-i.o: primes.c primes.c bitset.h
+	gcc $(CFLAGS) -c -DUSE_INLINE primes.c -o primes-i.o
+	
+eratosthenes-i.o: eratosthenes.c primes.c bitset.h
+	gcc $(CFLAGS) -c -DUSE_INLINE eratosthenes.c -o eratosthenes-i.o
+	
 
 clean:
 	rm -f *.o 
