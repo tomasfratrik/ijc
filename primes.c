@@ -11,14 +11,14 @@
 #include "bitset.h"
 #include "eratosthenes.h"
 // #include <assert.h>
-#define N 300000000 
+#define N 300000000
 #define NUM_TO_PRINT 10
 
 
 
 int main(){
 
-    
+    //    
     bitset_alloc(bit_arr,N);
     Eratosthenes(bit_arr);
     // unsigned long cislo = 1;
@@ -42,5 +42,5 @@ int main(){
         printf("%ld\n",last_prime_numbers[i]);
     }
 
-    // bitset_free(bit_arr);
+    bitset_free(bit_arr);
 }

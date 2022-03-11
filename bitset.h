@@ -2,17 +2,16 @@
  * bitset.h
  * Riešenie IJC=DU1, priklad a), 20.3.2022
  * Autor: Tomáš Frátrik (xfratr01), FIT
+ * Preložene: gcc 9.3.0
  */
-//test
 
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-// #include<assert.h>
 #include"error.h"
 
-#ifndef BITSET
-#define BITSET
+#ifndef BITSET_H
+#define BITSET_H
 
 typedef unsigned long *bitset_t;
 typedef unsigned long bitset_index_t;
@@ -37,9 +36,6 @@ typedef unsigned long bitset_index_t;
 #define bitset_size(jmeno_pole) jmeno_pole[0]
 #define bitset_free(jmeno_pole) free(jmeno_pole)
 
-
-// #define bitset_getbit(jmeno_pole,index) _static_assert((index > bitset_size(jmeno_pole)),"test") 
-//     ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)
 #define bitset_getbit(jmeno_pole,index)  (index > bitset_size(jmeno_pole))\
     ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(unsigned long)index, (unsigned long)bitset_size(jmeno_pole))),0 \
     : ((jmeno_pole[(index/((BITS(unsigned long))))+1] >> index ) & 1UL)

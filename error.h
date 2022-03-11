@@ -1,6 +1,6 @@
 /*
  * error.h
- * Riešenie IJC=DU1, priklad a), 20.3.2022
+ * Riešenie IJC=DU1, priklad b), 20.3.2022
  * Autor: Tomáš Frátrik (xfratr01), FIT
  * Preložene: gcc 9.3.0
  */
