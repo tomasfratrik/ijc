@@ -28,14 +28,16 @@ struct ppm * ppm_read(const char * filename){
         warning_msg("Nepodarilo sa otvorit subor!");
         return NULL;
     }
-    char format[3];
+
+    char format[3]; //sem vlozim z hlavicky typ formatu, napr: P6
     unsigned long xsize;
     unsigned long ysize;
     char rgb_depth[4];
-
-    int num_of_params = fscanf(fp,"%s %ld %ld %s\n",format,&xsize,&ysize,rgb_depth);
+    
+    int num_of_params = fscanf(fp,"%s %ld %ld %s\n",format,&xsize,&ysize,rgb_depth); //nacitam hlavicku
     unsigned long size = xsize*ysize*3;
 
+    /* Kontroli pre hlavicku */
 
     if((strcmp(format,"P6") || (RGB_DEPTH_CONST < atoi(rgb_depth))) || num_of_params != 4 ){
         warning_msg("Zly format vstupu!");
@@ -58,6 +60,7 @@ struct ppm * ppm_read(const char * filename){
 
     p->xsize = xsize;
     p->ysize = ysize;
+    //nacitam data
     if (fread(p->data, sizeof(char), size, fp) != size) {
         warning_msg("Nepodarilo sa precitat subor!");
         fclose(fp);
