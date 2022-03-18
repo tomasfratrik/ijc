@@ -5,5 +5,10 @@
  * Preložene: gcc 9.3.0
  */
 
+#ifndef ERATOSTHENES.H
+#define PERATOSTHENES.H
+
 #include "bitset.h"
 void Eratosthenes(bitset_t bitset_arr);
+
+#endif

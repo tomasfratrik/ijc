@@ -1,5 +1,6 @@
 # makefile
 # Autor: Tomáš Frátrik (xfratr01), FIT
+# Riešenie IJC=DU1, 20.3.2022
  
 
 CC=gcc

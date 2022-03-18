@@ -1,4 +1,4 @@
-    /*
+/*
  * steg-decode.c
  * Riešenie IJC=DU1, priklad b), 20.3.2022
  * Autor: Tomáš Frátrik (xfratr01), FIT
@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "ppm.h"
 #include "bitset.h"
-#include"eratosthenes.h"
+#include "eratosthenes.h"
 
 int main(int argc,char *argv[]) {
 
@@ -32,7 +32,7 @@ int main(int argc,char *argv[]) {
 
     for (unsigned long i = 29;i < size ;i++) {
         if (bitset_getbit(msgArray,i) == 0) {
-            int bit = ppm_p->data[i] & 1; // zistime LSB
+            int bit = ppm_p->data[i] & 1; // pomocou masky AND -> zistime LSB
             bitset_setbit(single_char, counter, bit);
             counter++;
             if(counter == 8) { //Ak uz mame potrebny pocet bitov na vytvorenie bajtu
@@ -44,7 +44,7 @@ int main(int argc,char *argv[]) {
 				}
                 putchar(single_char[1]);
 				counter = 0;
-                //vynulujem naspet bity (funguje aj bez toho) 
+                //vynulujem naspet bity
                 for(int j = 0; j< CHAR_BIT;j++){
                     bitset_setbit(single_char,j,0);
                 }

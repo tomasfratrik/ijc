@@ -5,7 +5,6 @@
  * Preložene: gcc 9.3.0
  */
 
-
 #include <stdio.h>
 #include <limits.h>
 #include <time.h>
@@ -17,14 +16,10 @@
 
 
 int main(){
-    
     clock_t start;
     start = clock();
-    //
     bitset_create(bit_arr,N);
-    // bitset_alloc(bit_arr,N);
     Eratosthenes(bit_arr);
-    // bitset_getbit(bit_arr,100);
     unsigned long last_prime_numbers[NUM_TO_PRINT];
     int count = 0;
 
@@ -42,5 +37,4 @@ int main(){
     }
 
     fprintf(stderr, "Time=%.3g\n", (double)(clock()-start)/CLOCKS_PER_SEC);
-    // bitset_free(bit_arr);
 }
