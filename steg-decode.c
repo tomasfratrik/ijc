@@ -11,11 +11,15 @@
 #include "bitset.h"
 #include"eratosthenes.h"
 
-int main() {
+int main(int argc,char *argv[]) {
 
-    struct ppm * ppm_p = ppm_read("du1-obrazek.ppm");
+    if(argc != 2){
+        error_exit("Nespravny pocet argumentov!\n");
+        return 1;
+    }
+    struct ppm * ppm_p = ppm_read(argv[1]);
     if(ppm_p == NULL){
-        error_exit("Nepodarilo sa precitat ppm format!");
+        error_exit("Nepodarilo sa precitat ppm format!\n");
         return 1;
     }
 

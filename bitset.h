@@ -11,6 +11,10 @@
 #include <assert.h>
 #include"error.h"
 
+
+//10 miliard
+#define UPPER_LIMIT 10000000000
+
 #ifndef BITSET_H
 #define BITSET_H
 
@@ -19,17 +23,20 @@ typedef unsigned long bitset_index_t;
 
 #define BITS(x) sizeof(x) *CHAR_BIT
 
+//Alokujeme velikost / velkost unsigned long == kolko krat sa tam zmesti unsigned long
+// + musim zaratat cely unsigned long aj ked alokujem menej ako unsigned long bitov
+// + musim alokovat 1 miesto na zaciatku kde ulozim velkost
+#define bitset_create(jmeno_pole,velikost) static_assert(velikost > 0 && velikost < UPPER_LIMIT ,"Pocet bitov musi byt vacsi ako 0"); \
+    bitset_index_t jmeno_pole[velikost / (BITS(unsigned long)) + ((velikost %(BITS(unsigned long))) == 0 ? 1 : 2 )] = {velikost,0}
+    
 
-#define bitset_create(jmeno_pole,size) bitset_index_t jmeno_pole[size / (BITS(unsigned long)) + ((size %(BITS(unsigned long))) == 0 ? 1 : 2 )] = {size,0}
-    // static_assert(size > 0,"nie no");
-
-#define bitset_alloc(jmeno_pole, size)\
-    assert((size > 0,"zle vsecko"));\
-    bitset_index_t *jmeno_pole = calloc(size / (BITS(unsigned long)) + ((size %(BITS(unsigned long))) == 0 ? 1 : 2 ), sizeof(unsigned long));\
+//calloc pre vynulovanie
+#define bitset_alloc(jmeno_pole, velikost) assert((velikost > 0 && velikost < UPPER_LIMIT,"Pocet bitov musi byt vacsi ako 0")); \
+    bitset_index_t *jmeno_pole = calloc(velikost / (BITS(unsigned long)) + ((velikost %(BITS(unsigned long))) == 0 ? 1 : 2 ), sizeof(unsigned long));\
     if(jmeno_pole == NULL){\
         error_exit("bitset_alloc: Chyba alokace paměti\n");\
     }\
-    jmeno_pole[0] = size;
+    jmeno_pole[0] = velikost;
 
 
 
@@ -48,7 +55,7 @@ typedef unsigned long bitset_index_t;
     : (bitset_setbit2(jmeno_pole,index,vyraz))
 
 
-
+//Ak USE_INLINE je def.
 #else
     inline void bitset_free(bitset_t jmeno_pole){
         free(jmeno_pole);

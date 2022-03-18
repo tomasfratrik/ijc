@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <limits.h>
+#include <time.h>
 #include "bitset.h"
 #include "eratosthenes.h"
 #define N 300000000
@@ -16,14 +17,18 @@
 
 
 int main(){
+    
+    clock_t start;
+    start = clock();
+    //
     bitset_create(bit_arr,N);
     // bitset_alloc(bit_arr,N);
     Eratosthenes(bit_arr);
-
+    // bitset_getbit(bit_arr,100);
     unsigned long last_prime_numbers[NUM_TO_PRINT];
     int count = 0;
 
-    //nacitam posledne cisla
+    //nacitam poslednych NUM_TO_PRINT cisiel
     for(unsigned long i = N-1; i >= 2 ;i--){
         if(bitset_getbit(bit_arr,i) == 0){
             count++;
@@ -36,5 +41,6 @@ int main(){
         printf("%ld\n",last_prime_numbers[i]);
     }
 
+    fprintf(stderr, "Time=%.3g\n", (double)(clock()-start)/CLOCKS_PER_SEC);
     // bitset_free(bit_arr);
 }
