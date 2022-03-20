@@ -18,6 +18,7 @@
 int main(){
     clock_t start;
     start = clock();
+
     bitset_create(bit_arr,N);
     Eratosthenes(bit_arr);
     unsigned long last_prime_numbers[NUM_TO_PRINT];

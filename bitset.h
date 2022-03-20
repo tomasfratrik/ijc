@@ -48,7 +48,7 @@ typedef unsigned long bitset_index_t;
 
 //Posunieme sa o urciti pocet bitov, a urobime masku AND s 1, a tak ziskame bit
 #define bitset_getbit(jmeno_pole,index)  (index > bitset_size(jmeno_pole))\
-    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n",(bitset_index_t)index, (bitset_index_t)bitset_size(jmeno_pole))),0 \
+    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(bitset_index_t)index, (bitset_index_t)bitset_size(jmeno_pole))),0 \
     : ((jmeno_pole[(index/((BITS(bitset_index_t))))+1] >> index ) & 1UL)
 
 
@@ -56,7 +56,7 @@ typedef unsigned long bitset_index_t;
 //Pomocna premenna inac by to bolo priliz dlhe
 #define bitset_setbit2(jmeno_pole,index,vyraz) (vyraz) ? (jmeno_pole[(index/((BITS(bitset_index_t))))+1]) |= 1UL << index : ((jmeno_pole[(index/((BITS(bitset_index_t))))+1])  &= ~(1UL << index))
 #define bitset_setbit(jmeno_pole,index,vyraz) (index > bitset_size(jmeno_pole))\
-    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n",(bitset_index_t)index, (bitset_index_t)bitset_size(jmeno_pole))),0\
+    ? (error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu",(bitset_index_t)index, (bitset_index_t)bitset_size(jmeno_pole))),0\
     : (bitset_setbit2(jmeno_pole,index,vyraz))
 
 

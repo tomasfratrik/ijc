@@ -33,11 +33,12 @@ error.o: error.c error.h
 eratosthenes.o: eratosthenes.c eratosthenes.h
 	$(CC) -c eratosthenes.c
 
+steg-decode.o: steg-decode.c
+	$(CC) -c steg-decode.c
+
 ppm.o: ppm.c ppm.h
 	$(CC) -c ppm.c
 
-steg-decode.o: steg-decode.c
-	$(CC) -c steg-decode.c
 
 
 #others
@@ -49,5 +50,4 @@ clean:
 	rm -f *.o primes primes-i steg-decode
 
 zip:
-	clean
-	xfratr01.zip *.c *.h makefile
+	zip xfratr01.zip *.c *.h makefile
