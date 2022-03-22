@@ -61,13 +61,20 @@ struct ppm * ppm_read(const char * filename){
     p->xsize = xsize;
     p->ysize = ysize;
     //nacitam data
-    if (fread(p->data, sizeof(char), size, fp) != size) {
+    unsigned long data = fread(p->data, sizeof(char), size, fp);
+    if (data != size) {
         warning_msg("Nepodarilo sa precitat subor!\n");
         fclose(fp);
         free(p);
 		return NULL;
     }
-
+    //kontrola EOF
+    if(fgetc(fp) != EOF){
+        warning_msg("Nenaslo sa zakoncenie suboru (EOF)\n");
+        fclose(fp);
+        free(p);
+		return NULL;
+    }
     fclose(fp);
     return p;
 }

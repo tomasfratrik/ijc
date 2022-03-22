@@ -11,10 +11,9 @@
 
 void Eratosthenes(bitset_t bitset_arr){
     
-    unsigned long zero = 0;
-    unsigned long one = 1;
-    bitset_setbit(bitset_arr,zero, 1);
-    bitset_setbit(bitset_arr,one , 1);
+    //nastavime cisla 0 a 1 ze su neni prvocislami
+    bitset_setbit(bitset_arr,1UL, 1);
+    bitset_setbit(bitset_arr,0UL, 1);
     unsigned long size = sqrt(bitset_size(bitset_arr));
     
     //implementacia eratosthenesovo sita

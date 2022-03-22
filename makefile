@@ -4,13 +4,13 @@
  
 
 CC=gcc
-CFLAGS= -O2 -g -std=c11 -pedantic -Wall -Wextra
+CFLAGS= -O2 -std=c11 -pedantic -Wall -Wextra
 
 #all
 all: primes primes-i steg-decode
 
 #main
-primes: primes.o error.o eratosthenes.o bitset.h
+primes: primes.o error.o bitset.h eratosthenes.o 
 	$(CC) $(CFLAGS) primes.o error.o eratosthenes.o -o primes -lm
 
 primes-i: primes.o error.o eratosthenes.o bitset.o
@@ -43,6 +43,7 @@ ppm.o: ppm.c ppm.h
 
 #others
 run: primes primes-i
+	ulimit -s 40000
 	./primes
 	./primes-i
 
