@@ -35,6 +35,12 @@ void print_elems(htab_t *table){
     printf("\n");
 }
 
+void print_pair(htab_pair_t *pair){
+    printf("\n");
+    printf("Key -> %s\n",pair->key);
+    printf("Value -> %d\n",pair->value);
+    printf("\n");
+}
 int main(){
     htab_t *hash_table;
     hash_table = htab_init(5);
@@ -48,6 +54,20 @@ int main(){
     htab_lookup_add(hash_table,"divocak");
     htab_add(hash_table, "test");
     htab_add(hash_table, "divocak");
+
+    // htab_erase(hash_table,"cesko");
+    // htab_erase(hash_table,"nehehe");
+    htab_clear(hash_table);
     print_elems(hash_table);
+
+
+    // htab_pair_t *item = htab_find(hash_table,"divocak");
+    // if(item == NULL){
+
+    // printf("NULL\n");
+    // return 1;
+    // }
+
+    // print_pair(item);
 
 }

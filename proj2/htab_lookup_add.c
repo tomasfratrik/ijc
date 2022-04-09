@@ -45,6 +45,7 @@ htab_pair_t * htab_add(htab_t *t,htab_key_t key){
         item->pair = malloc(sizeof(htab_pair_t));
         item->pair->value = 1;
         item->pair->key = key;
+        item->next = NULL;
         curr->next = item;
         return curr->pair;
 
