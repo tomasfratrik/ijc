@@ -11,23 +11,25 @@
 #include <string.h>     
 #include <stdbool.h>    
 
+
+struct htab;
+struct htab_item;
+struct htab_pair;
+
 typedef struct htab {
     unsigned long int size;
-    usingned long int arr_size;
-    htab_item_t *arr_ptr[]
+    unsigned long int arr_size;
+    struct htab_item *arr_ptr[];
 }htab_t;     
 
 typedef struct htab_item{
-    htab_item_t *next;
-    htab_pair pair;
-
+    struct htab_item *next;
+    struct htab_pair *pair;
 }htab_item_t;
 
-// Typy:
 typedef const char * htab_key_t;       
-typedef int htab_value_t;               
+typedef int htab_value_t;       
 
-// Dvojice dat v tabulce:
 typedef struct htab_pair {
     htab_key_t    key;          
     htab_value_t  value;        
@@ -42,7 +44,7 @@ size_t htab_size(const htab_t * t);             // počet záznamů v tabulce
 size_t htab_bucket_count(const htab_t * t);     // velikost pole
 void htab_resize(htab_t *t, size_t newn);       // změna velikosti pole
                                                 // (umožňuje rezervaci místa)
-                                                
+
 htab_pair_t * htab_find(htab_t * t, htab_key_t key);  // hledání
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key);
 

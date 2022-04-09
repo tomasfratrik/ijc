@@ -6,11 +6,15 @@
  */
 
 #include<stdio.h>
+#include<stdint.h>
 #include"htab.h"
 
 
-//Implementacia hash funkcie sdbm
-//odkaz: http://www.cse.yorku.ca/~oz/hash.html
+/* 
+ * Implementation of hash funcion sdbm
+ * Source: http://www.cse.yorku.ca/~oz/hash.html
+ * (funcion return) % arr_size = hash table index
+ */
 size_t htab_hash_function(const char *str) {
     uint32_t h=0;
     const unsigned char *p;

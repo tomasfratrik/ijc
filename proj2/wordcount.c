@@ -4,3 +4,13 @@
  * Autor: Tomáš Frátrik (xfratr01), FIT
  * Preložene: gcc 9.4.0
  */
+#include<stdio.h>
+#include "htab.h"
+
+
+int main(){
+    htab_t *hash_table;
+    hash_table = htab_init(20);
+    printf("Test");
+
+}
