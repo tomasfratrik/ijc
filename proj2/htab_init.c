@@ -12,12 +12,13 @@
 htab_t *htab_init(size_t n){
     htab_t *hash_table;
     hash_table = malloc(sizeof(htab_t) + (n*sizeof(htab_item_t)));
+    // hash_table = malloc(100);
     if(hash_table == NULL){
         return NULL;
     }
-    hash_table->arr_size = 0;
+    hash_table->arr_size = n;
     hash_table->size = 0;
-    //set to NULL
+    //init pointers to NULL
     for(int i = 0; i < n; i++){
         hash_table->arr_ptr[i] = NULL;
     }

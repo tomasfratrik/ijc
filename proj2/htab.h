@@ -16,6 +16,7 @@ struct htab;
 struct htab_item;
 struct htab_pair;
 
+
 typedef struct htab {
     unsigned long int size;
     unsigned long int arr_size;
@@ -23,6 +24,7 @@ typedef struct htab {
 }htab_t;     
 
 typedef struct htab_item{
+    int test;
     struct htab_item *next;
     struct htab_pair *pair;
 }htab_item_t;
@@ -39,11 +41,12 @@ typedef struct htab_pair {
 size_t htab_hash_function(htab_key_t str);
 
 // Funkce pro práci s tabulkou:
-htab_t *htab_init(size_t n);                    // konstruktor tabulky
+htab_t *htab_init(size_t n);                    // initialize hash table
 size_t htab_size(const htab_t * t);             // počet záznamů v tabulce
 size_t htab_bucket_count(const htab_t * t);     // velikost pole
 void htab_resize(htab_t *t, size_t newn);       // změna velikosti pole
                                                 // (umožňuje rezervaci místa)
+htab_pair_t * htab_add(htab_t *t,htab_key_t key);                                                
 
 htab_pair_t * htab_find(htab_t * t, htab_key_t key);  // hledání
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key);
