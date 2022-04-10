@@ -14,21 +14,13 @@
 
 void htab_clear(htab_t * t){
 
-    for(int i = 0; i < t->arr_size; i++){
-        htab_item_t *item = t->arr_ptr[i];
-        htab_item_t *item_next = t->arr_ptr[i]->next;
-        while(item != NULL){
-            if(item_next != NULL){
-                free(item->pair);
-                free(item);
-            }
-            else{
-                free(item->pair);
-                free(item);
-            }
-            item = item_next
-            item_next = item_next->next;
+    for(size_t i = 0; i < t->arr_size; i++){
+        htab_item_t *curr = t->arr_ptr[i];
+        htab_item_t *prev = t->arr_ptr[i];
+        while(curr != NULL){
+            curr = curr->next;
+            htab_erase(t,prev->pair->key);
+            prev = curr;
         }
-        t->arr_ptr[i] = NULL;
-    }    
+    }
 }

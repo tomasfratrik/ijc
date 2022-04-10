@@ -47,17 +47,23 @@ int main(){
 
     htab_lookup_add(hash_table,"test");
     htab_lookup_add(hash_table,"test");
-    htab_lookup_add(hash_table,"nehehe");
-    htab_lookup_add(hash_table,"auto");
-    htab_lookup_add(hash_table,"cesko");
+    // htab_lookup_add(hash_table,"nehehe");
+    // htab_lookup_add(hash_table,"auto");
+    // htab_lookup_add(hash_table,"cesko");
     htab_lookup_add(hash_table,"lmao");
     htab_lookup_add(hash_table,"divocak");
-    htab_add(hash_table, "test");
-    htab_add(hash_table, "divocak");
+    // htab_add(hash_table, "test");
+    // htab_add(hash_table, "divocak");
 
-    // htab_erase(hash_table,"cesko");
+    // htab_erase(hash_table,"test");
+    // htab_erase(hash_table,"lmao");
+    // htab_erase(hash_table,"divocak");
+    // htab_erase(hash_table,"lmao");
+    // htab_erase(hash_table,"test");
     // htab_erase(hash_table,"nehehe");
-    htab_clear(hash_table);
+    // htab_clear(hash_table);
+    // htab_free(hash_table);
+    htab_free(hash_table);
     print_elems(hash_table);
 
 
