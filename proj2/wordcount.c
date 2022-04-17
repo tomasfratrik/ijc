@@ -6,8 +6,17 @@
  */
 #include<stdio.h>
 #include "htab.h"
+#include "io.h"
 
-void print_elems(htab_t *table){
+
+
+
+#define HASH_TABLE_SIZE 10
+#define WORD_LEN_LIMIT 127
+
+
+//function to print htab
+void print_htab(htab_t *table){
     printf("\n");
         printf("size-> %ld\n",table->size);
         printf("arr_size-> %ld\n",table->arr_size);
@@ -23,11 +32,9 @@ void print_elems(htab_t *table){
             while(curr != NULL){
                 printf("[%s,%d]",curr->pair->key, curr->pair->value);
                 if(curr->next != NULL) printf("->");
-                // else printf("-|");
                 curr = curr->next;
             }
             printf("\n");
-            // printf("%d \t %s[%d]\n",i,table->arr_ptr[i]->pair->key,table->arr_ptr[i]->pair->value);
 
         }
     }
@@ -35,26 +42,39 @@ void print_elems(htab_t *table){
     printf("\n");
 }
 
-void print_pair(htab_pair_t *pair){
-    printf("\n");
-    printf("Key -> %s\n",pair->key);
-    printf("Value -> %d\n",pair->value);
-    printf("\n");
-}
+// void print_pair(htab_pair_t *pair){
+//     printf("\n");
+//     printf("Key -> %s\n",pair->key);
+//     printf("Value -> %d\n",pair->value);
+//     printf("\n");
+// }
 int main(){
     htab_t *hash_table;
-    hash_table = htab_init(5);
+    hash_table = htab_init(HASH_TABLE_SIZE);
 
+    // char word[WORD_LEN_LIMIT];
+
+    // int word_len = 0;
+
+    // while((word_len = read_word(word,WORD_LEN_LIMIT,stdin)) != EOF){
+    //     // printf(">%s<",word);
+    //     htab_lookup_add(hash_table,word);
+
+    // }
+
+
+
+    // print_htab(hash_table);
     htab_lookup_add(hash_table,"test");
     htab_lookup_add(hash_table,"test");
-    // htab_lookup_add(hash_table,"nehehe");
-    // htab_lookup_add(hash_table,"auto");
-    // htab_lookup_add(hash_table,"cesko");
+    htab_lookup_add(hash_table,"nehehe");
+    htab_lookup_add(hash_table,"auto");
+    htab_lookup_add(hash_table,"cesko");
     htab_lookup_add(hash_table,"lmao");
     htab_lookup_add(hash_table,"divocak");
     // htab_add(hash_table, "test");
     // htab_add(hash_table, "divocak");
-
+    
     // htab_erase(hash_table,"test");
     // htab_erase(hash_table,"lmao");
     // htab_erase(hash_table,"divocak");
@@ -63,17 +83,20 @@ int main(){
     // htab_erase(hash_table,"nehehe");
     // htab_clear(hash_table);
     // htab_free(hash_table);
+    // print_elems(hash_table);
+
+    print_htab(hash_table);
+    // htab_resize(hash_table,20);
+    
+    // print_htab(hash_table);
+
+    // htab_free(hash_table);
+
+    // int read_word(char *s, int max, FILE *f)
+    // int max = 5;
+    // char str[5];
+    // int test = read_word(str,5,stdin);
+    // printf("len -> %d\n",test);
+
     htab_free(hash_table);
-    print_elems(hash_table);
-
-
-    // htab_pair_t *item = htab_find(hash_table,"divocak");
-    // if(item == NULL){
-
-    // printf("NULL\n");
-    // return 1;
-    // }
-
-    // print_pair(item);
-
 }

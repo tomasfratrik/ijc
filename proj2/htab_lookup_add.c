@@ -62,6 +62,7 @@ htab_item_t *htab_create_item(htab_key_t key){
     
     htab_item_t *item = malloc(sizeof(htab_item_t));
     item->pair = malloc(sizeof(htab_pair_t));
+    // item->pair->key = calloc(strlen(key)+1, sizeof(char));
 
     item->pair->value = 1;
     item->pair->key = key;
@@ -72,6 +73,7 @@ htab_item_t *htab_create_item(htab_key_t key){
 }
 
 htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key){
+    // printf("Key: %s\n",key);
     uint32_t index = (htab_hash_function(key) % t->arr_size);
     htab_item_t *curr = t->arr_ptr[index];
 
