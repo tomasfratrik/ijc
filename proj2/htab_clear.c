@@ -10,6 +10,7 @@
 // #include<stdbool.h>
 // #include<stdint.h>
 #include "htab.h"
+#include "stdlib.h"
 
 
 void htab_clear(htab_t * t){
@@ -18,6 +19,13 @@ void htab_clear(htab_t * t){
         htab_item_t *curr = t->arr_ptr[i];
         htab_item_t *prev = t->arr_ptr[i];
         while(curr != NULL){
+            if((curr == prev) && curr->next == NULL){
+                free((char *)(curr->pair->key));
+                free(curr->pair);
+                free(curr);
+                t->arr_ptr[i] = NULL;
+                break;
+            }
             curr = curr->next;
             htab_erase(t,prev->pair->key);
             prev = curr;

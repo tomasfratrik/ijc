@@ -20,10 +20,10 @@ struct htab_pair;
 typedef struct htab {
     unsigned long int size;
     unsigned long int arr_size;
-    struct htab_item *arr_ptr[];
+    struct htab_item **arr_ptr;
 }htab_t;     
 
-void print_elems(htab_t *table);
+void print_htab(htab_t *table);
 typedef struct htab_item{
     int test;
     struct htab_item *next;

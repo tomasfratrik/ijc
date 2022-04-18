@@ -128,35 +128,32 @@ void array_add(htab_item_t **array,size_t size,htab_key_t key){
 // }
 
 void htab_resize(htab_t *t, size_t newn){
-// t->arr_ptr
 
-    htab_item_t* (*old_ptr) = t->arr_ptr;
-    htab_item_t **new_arr_ptr = malloc(newn*sizeof(htab_item_t*));
-
-    for(size_t i = 0; i< newn;i++){
-        new_arr_ptr[i] = NULL;
-    }
-
-
-    for (size_t i = 0; i<htab_bucket_count(t); i++){
-        htab_item_t *curr = t->arr_ptr[i];
-        while(curr != NULL){
-            array_add(new_arr_ptr,newn,curr->pair->key);
-            curr = curr->next;
+    htab_t *new_htab = htab_init(newn);
+    htab_item_t *item;
+    for(size_t i = 0 ;i < htab_bucket_count(t); i++){
+        item = t->arr_ptr[i];
+        while(item != NULL){
+            for(size_t j= 0; j < item->pair->value; j++)
+                htab_lookup_add(new_htab,item->pair->key);  
+            item = item->next;
         }
-    }
+    }   
 
-
-    // t->arr_ptr = new_arr_ptr;
-
-
-
-
-
-
-    print_array(new_arr_ptr,newn);
-
-    htab_array_erase(old_ptr,htab_bucket_count(t));
-
+    item = NULL;
+    htab_clear(t);
+    t->arr_ptr = realloc(t->arr_ptr,newn * sizeof(htab_item_t *));
+    t->arr_size = newn;
+    for(size_t i = 0 ;i < htab_bucket_count(new_htab); i++){
+        item = new_htab->arr_ptr[i];
+        while(item != NULL){
+            for(size_t j= 0; j < item->pair->value; j++)
+                htab_lookup_add(t,item->pair->key);  
+            item = item->next;
+        }
+    }   
+    
+    // print_htab(new_htab);
+    htab_free(new_htab);
 }
 
