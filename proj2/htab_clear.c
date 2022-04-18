@@ -1,25 +1,23 @@
 /*
  * htab_erase.c
- * Riešenie IJC=DU2, priklad b), 19.4.2022
- * Autor: Tomáš Frátrik (xfratr01), FIT
- * Preložene: gcc 9.4.0
+ * Solution to IJC=DU2,  b), 19.4.2022
+ * Author: Tomáš Frátrik (xfratr01), FIT
+ * Compiled: gcc 9.4.0
  */
 
 #include<stdio.h>
-// #include<stdlib.h>
-// #include<stdbool.h>
-// #include<stdint.h>
+#include <stdlib.h>
 #include "htab.h"
-#include "stdlib.h"
+#include "htab_private.h"
 
-
+//function goes thru all items and call erase function on them
 void htab_clear(htab_t * t){
 
     for(size_t i = 0; i < t->arr_size; i++){
         htab_item_t *curr = t->arr_ptr[i];
         htab_item_t *prev = t->arr_ptr[i];
-        while(curr != NULL){
-            if((curr == prev) && curr->next == NULL){
+        while(curr != NULL){ 
+            if((curr == prev) && curr->next == NULL){ //function itself will free only first item
                 free((char *)(curr->pair->key));
                 free(curr->pair);
                 free(curr);

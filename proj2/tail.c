@@ -1,19 +1,21 @@
 /*
  * tail.c
- * Riešenie IJC=DU2, priklad a), 19.4.2022
- * Autor: Tomáš Frátrik (xfratr01), FIT
- * Preložene: gcc 9.4.0
+ * Solution to IJC=DU2,  a), 19.4.2022
+ * Author: Tomáš Frátrik (xfratr01), FIT
+ * Compiled: gcc 9.4.0
  */
+
 
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<stdbool.h>
 #include <stdarg.h>
 #include "error.h"
 #define MAX 4095// max num of chars in a line
 
 
-
+//function that converts given char *string to int, and returns it
 int convert_to_num(char *str){
     char *endptr;
     int num = strtoul(str, &endptr, 10);
@@ -21,7 +23,7 @@ int convert_to_num(char *str){
         return -1;
     }
     if(num < 0) 
-        error_exit("Argument cislo je mensie ako 0\n");
+        error_exit("Number argument cannot be lesser than 0!\n");
     return num;
 }
 
@@ -31,6 +33,8 @@ int main(int argc, char *argv[]){
     int line_num = 10;
     FILE *fp = stdin;
 
+
+    //parsing arguments
     if(argc > 4){
         error_exit("Too many arguments!\n");
     }
@@ -58,31 +62,32 @@ int main(int argc, char *argv[]){
 
     }
 
-    // void *buff   
-    // char buffer[line_num][MAX];
-    char line[MAX+2];
 
-    char *buffer[line_num];
+    char line[MAX+2]; //parsing line 
+
+    char *buffer[line_num]; // creating cycle buffer of pointers to lines
 
     
     for(int i = 0; i < line_num; i++){
-        buffer[i] = calloc(MAX,sizeof(char));   
+        buffer[i] = calloc(MAX,sizeof(char));
     }
     
 
 
     int c;
     int i = 0;
-    int ignoreChars = 0;
+    bool ignoreChars = false;
+    bool show_warning = false;
 
     while((c = fgetc(fp)) != EOF){
         int newLineFlag = 0;
 
         line[i] = c;
-        if(i+1 == MAX && c != '\n'){
+        if(i+1 == MAX && c != '\n'){ //if maximum is reached
             c = '\n';
             line[i+1] = '\n';
-            ignoreChars = 1;
+            ignoreChars = true; //we will ignore other chars
+            show_warning = true;
         }
         i++;
 
@@ -98,43 +103,29 @@ int main(int argc, char *argv[]){
         }
         
         if(ignoreChars){
-            while((c = fgetc(fp)) != '\n'); 
-            ignoreChars = 0;
+            while((c = fgetc(fp)) != '\n'); //skip chars till \n occurs
+            ignoreChars = false;
         }
         if(newLineFlag){
             for(int i =line_num; i != 0; i-- ){
-                memcpy(buffer[i-1],buffer[i-2],MAX+2);
+                memcpy(buffer[i-1],buffer[i-2],MAX+2); //cycle
             }
-                memcpy(buffer[0],line,MAX+2);
+                memcpy(buffer[0],line,MAX+2); //set new line to buffer[0]
                 newLineFlag = 0;
         }
     }
 
+    if(show_warning == true)
+        warning_msg("More chars than MAX were used in a line!");
+
+    //printing buffer to stdout
     for(int i = line_num-1; i >= 0; i--){
         printf("%s",buffer[i]);
     }
 
+
+    //freeing allocated memmory
     for(int i = 0; i <line_num;i++){
         free(buffer[i]);
     }
-
-
 } 
-
-
-    // while(fgets(line,MAX,fp)!= NULL){
-
-    //     if(line == NULL)printf("found");
-    //     for(int i =line_num; i != 0; i-- ){
-    //         memcpy(buffer[i-1],buffer[i-2],MAX);
-    //     }
-    //         memcpy(buffer[0],line,MAX);
-    // }
-    // for(int i = line_num-1; i >= 0; i--){
-    //     printf("%s",buffer[i]);
-    // }
-
-    // for(int i = 0; i <line_num;i++){
-    //     free(buffer[i]);
-    // }
-

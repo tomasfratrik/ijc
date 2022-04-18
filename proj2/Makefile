@@ -1,10 +1,10 @@
 # Makefile
-# Autor: Tomáš Frátrik (xfratr01), FIT
-# Riešenie IJC=DU2, 19.4.2022
+# Author: Tomáš Frátrik (xfratr01), FIT
+# Solution to IJC=DU2, 19.4.2022
 
 CC=gcc
 CFLAGS=  -std=c11 -pedantic -Wall -Wextra -Werror
-SOURCE= error.o htab_for_each.o io.o wordcount.o htab_init.o htab_hash_function.o htab_lookup_add.o htab_erase.o htab_find.o htab_free.o htab_clear.o htab_size.o htab_bucket_count.o htab_resize.o
+SOURCE= print_htab.o htab_item_ctor.o error.o htab_for_each.o io.o wordcount.o htab_init.o htab_hash_function.o htab_lookup_add.o htab_erase.o htab_find.o htab_free.o htab_clear.o htab_size.o htab_bucket_count.o htab_resize.o
 
 all: wordcount
 
@@ -12,8 +12,11 @@ wordcount: $(SOURCE)
 	$(CC) $(CFLAGS) $(SOURCE) -o  wordcount
 
 
-wordcount.o: wordcount.c htab.h
+wordcount.o: wordcount.c
 	$(CC) -c wordcount.c
+
+print_htab.o: print_htab.c
+	$(CC) -c print_htab.c
 
 htab_init.o: htab_init.c 
 	$(CC) -c htab_init.c
@@ -23,6 +26,10 @@ htab_hash_function.o: htab_hash_function.c
 	
 htab_lookup_add.o: htab_lookup_add.c
 	$(CC) -c htab_lookup_add.c
+
+
+htab_item_ctor.o: htab_item_ctor.c
+	$(CC) -c htab_item_ctor.c
 
 htab_find.o: htab_find.c
 	$(CC) -c htab_find.c

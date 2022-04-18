@@ -1,14 +1,14 @@
 /*
  * htab_free.c
- * Riešenie IJC=DU2, priklad b), 19.4.2022
- * Autor: Tomáš Frátrik (xfratr01), FIT
- * Preložene: gcc 9.4.0
+ * Solution to IJC=DU2,  b), 19.4.2022
+ * Author: Tomáš Frátrik (xfratr01), FIT
+ * Compiled: gcc 9.4.0
  */
-
 
 #include<stdio.h>
 #include<stdlib.h>
 #include "htab.h"
+#include "htab_private.h"
 
 void htab_free(htab_t * t){
 

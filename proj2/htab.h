@@ -1,8 +1,8 @@
 /*
  * htab.h
- * Riešenie IJC=DU2, priklad b), 19.4.2022
- * Autor: Tomáš Frátrik (xfratr01), FIT
- * Preložene: gcc 9.4.0
+ * Solution to IJC=DU2,  b), 19.4.2022
+ * Author: Tomáš Frátrik (xfratr01), FIT
+ * Compiled: gcc 9.4.0
  */
 
 #ifndef __HTAB_H__
@@ -23,7 +23,6 @@ typedef struct htab {
     struct htab_item **arr_ptr;
 }htab_t;     
 
-void print_htab(htab_t *table);
 typedef struct htab_item{
     int test;
     struct htab_item *next;

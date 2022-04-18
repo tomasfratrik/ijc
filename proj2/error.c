@@ -1,8 +1,8 @@
 /*
  * error.c
- * Riešenie IJC=DU2, 19.4.2022
- * Autor: Tomáš Frátrik (xfratr01), FIT
- * Preložene: gcc 9.4.0
+ * Solution to IJC=DU2,  from DU1, 19.4.2022
+ * Author: Tomáš Frátrik (xfratr01), FIT
+ * Compiled: gcc 9.4.0
  */
 
 #include "error.h"
