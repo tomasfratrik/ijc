@@ -9,25 +9,16 @@
 #define __HTAB_H__
 
 #include <string.h>     
-#include <stdbool.h>    
+#include <stdbool.h>   
 
 
-struct htab;
+
+struct htab;    // neúplná deklarace struktury - uživatel nevidí obsah
+typedef struct htab htab_t;     // typedef podle zadání
+
 struct htab_item;
-struct htab_pair;
+typedef struct htab_item htab_item_t;
 
-
-typedef struct htab {
-    unsigned long int size;
-    unsigned long int arr_size;
-    struct htab_item **arr_ptr;
-}htab_t;     
-
-typedef struct htab_item{
-    int test;
-    struct htab_item *next;
-    struct htab_pair *pair;
-}htab_item_t;
 
 typedef const char * htab_key_t;       
 typedef int htab_value_t;       

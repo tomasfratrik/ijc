@@ -17,9 +17,8 @@
 //but then we would need to realloc a lot
 //let say we have 10*a4 papers, than that is 2600
 //for division we use closes prime number so 2609
-#define HASH_TABLE_SIZE 10
+#define HASH_TABLE_SIZE 10000
 #define WORD_LEN_LIMIT 127
-
 
 int main(){
     htab_t *hash_table;
@@ -40,9 +39,28 @@ int main(){
         warning_msg("word exceeded lenght limit!\n");
         WarnUser = false;
     }
+    // htab_erase(hash_table,"riadok");
+    // htab_erase(hash_table,"text");
+    // htab_erase(hash_table,"siedmi");
+    // htab_erase(hash_table,"desiaty");
+    // htab_erase(hash_table,"treti");
+    // htab_erase(hash_table,"5");
+    // htab_erase(hash_table,"4");
+    // htab_erase(hash_table,"osmi");
+    // htab_erase(hash_table,"je");
+    // htab_erase(hash_table,"siesty");
 
-    print_htab(hash_table);
-    htab_resize(hash_table,20);
+
+    htab_lookup_add(hash_table,"test");
+    htab_lookup_add(hash_table,"test");
+    htab_lookup_add(hash_table,"xdd");
+    htab_lookup_add(hash_table,"lmaooo");
+    htab_lookup_add(hash_table,"neheh");
+    // htab_erase(hash_table,"test");
+    // htab_erase(hash_table,"lmaooo");
+    // htab_lookup_add(hash_table,"divocak");
+    // print_htab(hash_table);
+    // htab_resize(hash_table,4);
     print_htab(hash_table);
 
     htab_free(hash_table);

@@ -13,7 +13,6 @@
 #include "htab_private.h"
 
 
-
 //function to erase item and free its memory
 bool htab_erase(htab_t * t, htab_key_t key){
 
@@ -21,8 +20,6 @@ bool htab_erase(htab_t * t, htab_key_t key){
     uint32_t index = (htab_hash_function(key) % htab_bucket_count(t)); // find index in table
     htab_item_t *curr = t->arr_ptr[index];
     htab_item_t *prev = t->arr_ptr[index];
-    
-    
     while(curr != NULL){ //if there is NULL pointer return false
         if(strcmp(curr->pair->key,key)==0){ //found key
             if(prev == curr){
@@ -31,7 +28,7 @@ bool htab_erase(htab_t * t, htab_key_t key){
             //curr is found item
             //set prev item to point where curr was pointing
             prev->next = curr->next; 
-            free((char *)(curr->pair->key)); //all allocated memmory
+            free((char *)(curr->pair->key)); //free all allocated memmory in item
             free(curr->pair); 
             free(curr);
             t->size--;
