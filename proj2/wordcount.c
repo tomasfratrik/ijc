@@ -11,26 +11,41 @@
 #include "htab_private.h"
 #include "error.h"
 #include "io.h"
-//
 
-//I tested few full A4 documents, average unique words were 260,
-//but then we would need to realloc a lot
-//let say we have 10*a4 papers, than that is 2600
-//for division we use closes prime number so 2609
-#define HASH_TABLE_SIZE 10000
+//if we choose low number, we dont waste memory but we reduce speed
+//nowdays I think memmory isnt a big problem, and I think speed is more important 
+//so around 15000 should be  (this really depents on how many unique keys we are going to store)
+
+// from one source I found out that the prime number is the best to reduce collisions, so we choose 15013
+//source: https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1
+#define HASH_TABLE_SIZE 10
+
+#define AVG_LEN_MAX 0.75 //75%
+//from this source, aroud 70% - 75% max occupation should be the best
+//source: https://www.quora.com/How-is-the-size-of-a-hash-table-determined-How-should-optimization-be-done-for-it-to-be-fast
+
 #define WORD_LEN_LIMIT 127
 
 int main(){
     htab_t *hash_table;
     hash_table = htab_init(HASH_TABLE_SIZE);
+    if(hash_table == NULL)
+        error_exit("Couldnt allocate new hash table!\n");
 
     char word[WORD_LEN_LIMIT];
 
     int word_len = 0;
     bool WarnUser =false;
+    htab_pair_t *pair;
 
-    while((word_len = read_word(word,WORD_LEN_LIMIT,stdin)) != EOF){
-        htab_lookup_add(hash_table,word);
+
+    while((word_len = read_word(word,WORD_LEN_LIMIT,stdin)) != EOF){ 
+        pair = htab_lookup_add(hash_table,word);
+        pair->value++;
+        double avg = (double)htab_size(hash_table) / htab_bucket_count(hash_table); //average occupation in bucket
+        if(AVG_LEN_MAX < avg){
+            htab_resize(hash_table,(htab_bucket_count(hash_table)*2)); 
+        }
         if(word_len > WORD_LEN_LIMIT -1)
             WarnUser = true;
     }
@@ -39,29 +54,7 @@ int main(){
         warning_msg("word exceeded lenght limit!\n");
         WarnUser = false;
     }
-    // htab_erase(hash_table,"riadok");
-    // htab_erase(hash_table,"text");
-    // htab_erase(hash_table,"siedmi");
-    // htab_erase(hash_table,"desiaty");
-    // htab_erase(hash_table,"treti");
-    // htab_erase(hash_table,"5");
-    // htab_erase(hash_table,"4");
-    // htab_erase(hash_table,"osmi");
-    // htab_erase(hash_table,"je");
-    // htab_erase(hash_table,"siesty");
 
-
-    htab_lookup_add(hash_table,"test");
-    htab_lookup_add(hash_table,"test");
-    htab_lookup_add(hash_table,"xdd");
-    htab_lookup_add(hash_table,"lmaooo");
-    htab_lookup_add(hash_table,"neheh");
-    // htab_erase(hash_table,"test");
-    // htab_erase(hash_table,"lmaooo");
-    // htab_lookup_add(hash_table,"divocak");
-    // print_htab(hash_table);
-    // htab_resize(hash_table,4);
     print_htab(hash_table);
-
     htab_free(hash_table);
 }

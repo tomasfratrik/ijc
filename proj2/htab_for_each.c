@@ -17,7 +17,7 @@
 // f returns nothing and parses pointer to htab_pair_t as an argument
 void htab_for_each(const htab_t * t, void (*f)(htab_pair_t *data)){
     int cntr =  0;
-    for(int i = 0; i < htab_bucket_count(t);i++){
+    for(size_t i = 0; i < htab_bucket_count(t);i++){
         htab_item_t *curr = t->arr_ptr[i];
         while(curr != NULL){
             if(!cntr){ //if it is first item

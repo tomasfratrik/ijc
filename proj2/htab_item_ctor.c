@@ -24,6 +24,7 @@ htab_item_t *htab_item_ctor(htab_key_t key){
     char *string = calloc(strlen(key)+1, sizeof(char));
     strcpy(string,key);
     item->pair->key = string;
-    item->pair->value = 1;
+    item->pair->value = 0;
     item->next = NULL;
+    return item;
 }

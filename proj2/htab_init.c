@@ -19,7 +19,7 @@ htab_t *htab_init(size_t n){
     hash_table = malloc(sizeof(htab_t));
 
     if(hash_table == NULL)
-        error_exit("Couldnt allocate new hash table!\n");
+        return NULL;
 
     hash_table->arr_ptr = calloc(n,sizeof(htab_item_t*));
     hash_table->arr_size = n;
@@ -27,7 +27,7 @@ htab_t *htab_init(size_t n){
 
     
     //init pointers to NULL
-    for(int i = 0; i < n; i++){
+    for(size_t i = 0; i < n; i++){
         hash_table->arr_ptr[i] = NULL;
     }
     return hash_table;

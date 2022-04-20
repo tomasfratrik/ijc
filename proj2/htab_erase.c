@@ -11,6 +11,7 @@
 #include<stdint.h>
 #include "htab.h"
 #include "htab_private.h"
+#define AVG_LEN_MIN 0.2 //20%
 
 
 //function to erase item and free its memory
@@ -33,6 +34,10 @@ bool htab_erase(htab_t * t, htab_key_t key){
             free(curr);
             t->size--;
             return true;
+            double avg = (double)htab_size(t) / htab_bucket_count(t);
+            if(AVG_LEN_MIN > avg){
+                htab_resize(t,(htab_bucket_count(t)/2));
+            }
         }
         else{
             prev = curr;

@@ -19,13 +19,13 @@ void print_htab(htab_t *table){
         printf("arr_size-> %ld\n",table->arr_size);
         printf("\n");
     printf("/************ HASH TABLE ************/\n");
-    for(int i = 0; i < table->arr_size;i++){
+    for(size_t i = 0; i < table->arr_size;i++){
         if(table->arr_ptr[i] == NULL){
-            printf("%d \t ---\n",i);
+            printf("%ld \t ---\n",i);
         }
         else{
             htab_item_t *curr = table->arr_ptr[i];
-            printf("%d \t ",i);
+            printf("%ld \t ",i);
             while(curr != NULL){
                 printf("[%s,%d]",curr->pair->key, curr->pair->value);
                 if(curr->next != NULL) printf("->");

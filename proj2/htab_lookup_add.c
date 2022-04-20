@@ -11,8 +11,6 @@
 #include "htab.h"
 #include "htab_private.h"
 
-#define AVG_LEN_MAX 2
-#define AVG_LEN_MIN 0.5
 
 //function adds new item if key wasnt found, or increments value by 1 if it founds the key
 htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key){
@@ -22,7 +20,7 @@ htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key){
 
     while(curr != NULL){ //if there is at least 1 item already
         if(!strcmp(curr->pair->key,key)){ //found key
-            curr->pair->value++;
+            // curr->pair->value++;
             return curr->pair;
         }
         if(curr->next == NULL) break;
@@ -36,16 +34,6 @@ htab_pair_t *htab_lookup_add(htab_t *t, htab_key_t key){
     }
     else{
         curr->next = item;
-    }
-
-    // if(htab_size(t) / )
-    double avg = (double)htab_size(t) / htab_bucket_count(t);
-    // printf("AVG: %lf \n",avg);
-    if(AVG_LEN_MAX < avg){
-        htab_resize(t,(htab_bucket_count(t)*2));
-    }
-    if(AVG_LEN_MIN > avg){
-        htab_resize(t,(htab_bucket_count(t)/2));
     }
 
     return item->pair;
