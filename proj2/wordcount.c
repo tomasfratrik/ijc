@@ -18,13 +18,21 @@
 
 // from one source I found out that the prime number is the best to reduce collisions, so we choose 15013
 //source: https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1
-#define HASH_TABLE_SIZE 10
+#define HASH_TABLE_SIZE 15013
 
 #define AVG_LEN_MAX 0.75 //75%
 //from this source, aroud 70% - 75% max occupation should be the best
 //source: https://www.quora.com/How-is-the-size-of-a-hash-table-determined-How-should-optimization-be-done-for-it-to-be-fast
 
 #define WORD_LEN_LIMIT 127
+
+
+
+//first function to print pairs, which uses htab_for_each, secont function is in print_htab(htab_t *t), which is more complex
+void printh(htab_pair_t* pair) {
+  printf("%s\t%d\n", pair->key, pair->value);
+}
+
 
 int main(){
     htab_t *hash_table;
@@ -35,7 +43,7 @@ int main(){
     char word[WORD_LEN_LIMIT];
 
     int word_len = 0;
-    bool WarnUser =false;
+    bool WarnUser =false; //flag
     htab_pair_t *pair;
 
 
@@ -55,6 +63,7 @@ int main(){
         WarnUser = false;
     }
 
-    print_htab(hash_table);
+    // print_htab(hash_table);
+    // htab_for_each(hash_table,printh);
     htab_free(hash_table);
 }

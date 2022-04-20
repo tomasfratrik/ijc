@@ -12,37 +12,6 @@
 #include "htab_private.h"
 
 
-//reason for making this copypasted lookup_add
-//is that this lookup_add doesnt check for min and max (if it did it could call resize again, and resize calls lookup_add)
-//therefore it cannot get to infinite cycle
-
-htab_pair_t *htab_ownlookup_add(htab_t *t, htab_key_t key){
-    uint32_t index = (htab_hash_function(key) % htab_bucket_count(t)); //find index
-    htab_item_t *curr = t->arr_ptr[index];
-
-
-    while(curr != NULL){ //if there is at least 1 item already
-        if(!strcmp(curr->pair->key,key)){ //found key
-            curr->pair->value++;
-            return curr->pair;
-        }
-        if(curr->next == NULL) break;
-        curr = curr->next;
-    }
-
-    t->size++;
-    htab_item_t *item = htab_item_ctor(key);
-    if(t->arr_ptr[index] == NULL){ //if it is first item
-        t->arr_ptr[index] = item;
-    }
-    else{
-        curr->next = item;
-    }
-
-    return item->pair;
-
-}
-
 /* function creates new hash table with the newn size 
  * to this new hash table we parse old items from old table, but to different indexes
  * then we clear old hash table
@@ -58,7 +27,7 @@ void htab_resize(htab_t *t, size_t newn){
         item = t->arr_ptr[i];
         while(item != NULL){
             for(int j= 0; j < item->pair->value; j++){
-                pair = htab_ownlookup_add(new_htab,item->pair->key);  
+                pair = htab_lookup_add(new_htab,item->pair->key);  
                 pair->value = item->pair->value;
             }
             item = item->next;
@@ -80,7 +49,7 @@ void htab_resize(htab_t *t, size_t newn){
         item = new_htab->arr_ptr[i];
         while(item != NULL){
             for(int j= 0; j < item->pair->value; j++){
-                pair = htab_ownlookup_add(t,item->pair->key);  
+                pair = htab_lookup_add(t,item->pair->key);  
                 pair->value = item->pair->value;
             }
             item = item->next;
